@@ -43,6 +43,9 @@
             this.DollarsRadioButton = new System.Windows.Forms.RadioButton();
             this.RUBradioButton = new System.Windows.Forms.RadioButton();
             this.StartButton = new System.Windows.Forms.Button();
+            this.ReturnButton = new System.Windows.Forms.Button();
+            this.Copy_Button = new System.Windows.Forms.Button();
+            this.Paste_Button = new System.Windows.Forms.Button();
             this.LangGroupBox.SuspendLayout();
             this.CurrencyGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -122,6 +125,7 @@
             this.ENGradioButton.TabIndex = 1;
             this.ENGradioButton.Text = "English";
             this.ENGradioButton.UseVisualStyleBackColor = true;
+            this.ENGradioButton.CheckedChanged += new System.EventHandler(this.ENGradioButton_CheckedChanged);
             // 
             // RUradioButton
             // 
@@ -134,6 +138,7 @@
             this.RUradioButton.TabStop = true;
             this.RUradioButton.Text = "Русский";
             this.RUradioButton.UseVisualStyleBackColor = true;
+            this.RUradioButton.CheckedChanged += new System.EventHandler(this.RUradioButton_CheckedChanged);
             // 
             // CurrencyGroupBox
             // 
@@ -185,13 +190,46 @@
             // StartButton
             // 
             this.StartButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.StartButton.Location = new System.Drawing.Point(255, 6);
+            this.StartButton.Location = new System.Drawing.Point(222, 11);
             this.StartButton.Name = "StartButton";
-            this.StartButton.Size = new System.Drawing.Size(132, 86);
+            this.StartButton.Size = new System.Drawing.Size(132, 40);
             this.StartButton.TabIndex = 1;
-            this.StartButton.Text = "Перевести";
+            this.StartButton.Text = "Перевести / Transfer";
             this.StartButton.UseVisualStyleBackColor = true;
             this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
+            // 
+            // ReturnButton
+            // 
+            this.ReturnButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ReturnButton.Location = new System.Drawing.Point(360, 57);
+            this.ReturnButton.Name = "ReturnButton";
+            this.ReturnButton.Size = new System.Drawing.Size(132, 40);
+            this.ReturnButton.TabIndex = 12;
+            this.ReturnButton.Text = "Вернуть значение / Return value";
+            this.ReturnButton.UseVisualStyleBackColor = true;
+            this.ReturnButton.Click += new System.EventHandler(this.ReturnButton_Click);
+            // 
+            // Copy_Button
+            // 
+            this.Copy_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Copy_Button.Location = new System.Drawing.Point(222, 57);
+            this.Copy_Button.Name = "Copy_Button";
+            this.Copy_Button.Size = new System.Drawing.Size(132, 40);
+            this.Copy_Button.TabIndex = 13;
+            this.Copy_Button.Text = "Копировать  / Copy";
+            this.Copy_Button.UseVisualStyleBackColor = true;
+            this.Copy_Button.Click += new System.EventHandler(this.Copy_Button_Click);
+            // 
+            // Paste_Button
+            // 
+            this.Paste_Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Paste_Button.Location = new System.Drawing.Point(361, 12);
+            this.Paste_Button.Name = "Paste_Button";
+            this.Paste_Button.Size = new System.Drawing.Size(130, 38);
+            this.Paste_Button.TabIndex = 14;
+            this.Paste_Button.Text = "Вставить / Paste";
+            this.Paste_Button.UseVisualStyleBackColor = true;
+            this.Paste_Button.Click += new System.EventHandler(this.Paste_Button_Click);
             // 
             // MainForm
             // 
@@ -199,7 +237,10 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(889, 147);
+            this.ClientSize = new System.Drawing.Size(889, 168);
+            this.Controls.Add(this.Paste_Button);
+            this.Controls.Add(this.Copy_Button);
+            this.Controls.Add(this.ReturnButton);
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.CurrencyGroupBox);
             this.Controls.Add(this.LangGroupBox);
@@ -238,6 +279,9 @@
         private System.Windows.Forms.RadioButton DollarsRadioButton;
         private System.Windows.Forms.RadioButton RUBradioButton;
         private System.Windows.Forms.Button StartButton;
+        private System.Windows.Forms.Button ReturnButton;
+        private System.Windows.Forms.Button Copy_Button;
+        private System.Windows.Forms.Button Paste_Button;
     }
 }
 

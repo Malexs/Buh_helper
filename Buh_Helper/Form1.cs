@@ -15,13 +15,16 @@ namespace Buh_Helper
 {
     public partial class MainForm : Form
     {
-        string currchoose = "rub";
+        string currchoose = "rub";    //Значения выбора
+        bool isrussian = true;        //по умолчанию.
+        Regex rgx = new Regex("[^0-9]");
 
         public MainForm()
         {
             InitializeComponent();
         }
 
+        //Убрать ненужные нули в начале строки
         string KillNulls(string killerstring)
         {
             string result = "";
@@ -37,45 +40,94 @@ namespace Buh_Helper
             return result;
         }
 
-
+        //Запуск процесса перевода
         private void StartButton_Click(object sender, EventArgs e)
         {
-            Regex rgx = new Regex("[^0-9]");
             string str1 = EnterTextBox.Text;
             str1 = rgx.Replace(str1, "");
             try
             {
                 str1 = KillNulls(str1);
                 PrevNumb.Text = str1;
-                MoneyClass test = new MoneyClass(str1,currchoose);
-                EnterTextBox.Clear();
-                ResultBox.Text = test.Calculate();
+                if (isrussian)
+                {
+                    RusMoney test = new RusMoney(str1, currchoose);
+                    EnterTextBox.Clear();
+                    ResultBox.Text = test.Calculate();
+                }
+                else
+                {
+                    EngMoney test = new EngMoney(str1, currchoose);
+                    EnterTextBox.Clear();
+                    ResultBox.Text = test.Calculate();
+                }
             }
-            catch (MoneyExeption ex)
+            catch (UserExeption ex)
             {
+                EnterTextBox.Clear();
+                PrevNumb.Clear();
                 ResultBox.Text = ""+ex;
             }
             catch
             {
+                EnterTextBox.Clear();
+                PrevNumb.Clear();
                 ResultBox.Text = "Ошибка!";
             }
         }
 
+        //Выбор валюты - рубли (по умолчанию)
         private void RUBradioButton_CheckedChanged(object sender, EventArgs e)
         {
             currchoose = "rub";
         }
 
+        //Выбор валюты - доллар
         private void DollarsRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             currchoose = "dol";
         }
 
+        //Выбор валюты - евро
         private void EuroRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             currchoose = "eur";
         }
 
+        //Выбор языка результата - русский (по умолчанию)
+        private void RUradioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            isrussian = true;
+        }
+
+        //Выбор языка результата - английский
+        private void ENGradioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            isrussian = false;
+        }
+
+        //Вернуть предыдущее значение в начальную строку
+        private void ReturnButton_Click(object sender, EventArgs e)
+        {
+            EnterTextBox.Text = PrevNumb.Text;
+            PrevNumb.Clear();
+            ResultBox.Clear();
+        }
+
+        //Заносим результат в буфер обмена
+        private void Copy_Button_Click(object sender, EventArgs e)
+        {
+            if (!ResultBox.Text.Equals(""))
+                Clipboard.SetText(ResultBox.Text);
+        }
+
+        //Заносим содержимое буфера обмена
+        private void Paste_Button_Click(object sender, EventArgs e)
+        {
+            EnterTextBox.Text = Clipboard.GetText();
+            EnterTextBox.Text = rgx.Replace(EnterTextBox.Text,"");
+        }
 
     }
 }
+//12               0rge0903

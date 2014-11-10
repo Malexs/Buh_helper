@@ -39,7 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MoneyClass.cs" />
+    <Compile Include="AmountChoose.cs" />
+    <Compile Include="AmountChooseEng.cs" />
+    <Compile Include="Choose.cs" />
+    <Compile Include="CurrChooseEng.cs" />
+    <Compile Include="CurrencyChoose.cs" />
+    <Compile Include="EngMoney.cs" />
+    <Compile Include="UserExeption.cs" />
+    <Compile Include="RusMoney.cs" />
     <Compile Include="Money.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

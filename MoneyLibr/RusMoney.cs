@@ -6,24 +6,10 @@ using System.Threading.Tasks;
 
 namespace MoneyLibr
 {
-    public class MoneyExeption : Exception
-    {
-        public MoneyExeption() : base() { }
-        public MoneyExeption(string message) : base(message) { }
-        public MoneyExeption(string message, Exception inner) : base(message, inner) { }
-        protected MoneyExeption(
-            System.Runtime.Serialization.SerializationInfo si,
-            System.Runtime.Serialization.StreamingContext sc)
-            : base(si, sc) { }
-
-        public override string ToString()
-        {
-            return Message;
-        }
-    }
+    
 
 
-    public class MoneyClass:Money
+    public class RusMoney:Money
     {
         
         string[,] thebestmassiveever = {
@@ -34,7 +20,7 @@ namespace MoneyLibr
                                        };
         
 
-        public MoneyClass(string number, string curr)
+        public RusMoney(string number, string curr)
         {
             this.isFemale = false;
             this.currency = curr;
@@ -70,12 +56,12 @@ namespace MoneyLibr
                         else
                             if (this.numberLength > 12)
                             {
-                                throw new MoneyExeption("Невозможно перевести. Слишком большое число!");
+                                throw new UserExeption("Невозможно перевести. Слишком большое число!");
                             }
                             else
                                 if (this.numberLength == 0)
                                 {
-                                    throw new MoneyExeption("Невозможно перевести. Пустая строка!");
+                                    throw new UserExeption("Невозможно перевести. Пустая строка!");
                                 }
         }
 
@@ -144,107 +130,17 @@ namespace MoneyLibr
            string result = "";
            if (!somestring.Equals("") && !somestring.Equals("0") && !somestring.Equals("00") && !somestring.Equals("000"))
            {
-               if (somestring.Length > 1 && !somestring[(somestring.Length - 2)].Equals('1'))
+               if (somestring.Length > 1 && somestring[(somestring.Length - 2)].Equals('1'))
                {
-                   switch (amount)
-                   {
-                       case "bil":
-                           {
-                               result = "миллиардов ";
-                               break;
-                           }
-                       case "mil":
-                           {
-                               result = "миллионов ";
-                               break;
-                           }
-                       case "thous":
-                           {
-                               result = "тысяч ";
-                               break;
-                           }
-                       default: break;
-                   }
+                   AmountChoose ac = new AmountChoose(amount);
+                   result = ac.ReturnVal();
+                   
                }
                else
                {
-                   int last = (int)somestring[somestring.Length - 1] - 48;
-                   switch (amount)
-                   {
-                       case "bil":
-                           {
-                               switch (last)
-                               {
-                                   case 1:
-                                       {
-                                           result = "миллиард ";
-                                           break;
-                                       }
-                                   case 2:
-                                   case 3:
-                                   case 4:
-                                       {
-                                           result = "миллиарда ";
-                                           break;
-                                       }
-                                   default:
-                                       {
-                                           result = "миллиардов ";
-                                           break;
-                                       }
-                               }
-                               break;
-                           }
-                       case "mil":
-                           {
-                               switch (last)
-                               {
-                                   case 1:
-                                       {
-                                           result = "миллион ";
-                                           break;
-                                       }
-                                   case 2:
-                                   case 3:
-                                   case 4:
-                                       {
-                                           result = "миллиона ";
-                                           break;
-                                       }
-                                   default:
-                                       {
-                                           result = "миллионов ";
-                                           break;
-                                       }
-                               }
-                               break;
-                           }
-                       case "thous":
-                           {
-                               switch (last)
-                               {
-                                   case 1:
-                                       {
-                                           result = "тысяча ";
-                                           break;
-                                       }
-                                   case 2:
-                                   case 3:
-                                   case 4:
-                                       {
-                                           result = "тысячи ";
-                                           break;
-                                       }
-                                   default:
-                                       {
-                                           result = "тысяч ";
-                                           break;
-                                       }
-                               }
-                               break;
-                           }
-                       default: break;
-                   }
+                   int last = (int)somestring[somestring.Length - 1] - 48;                   
+                   AmountChoose ac = new AmountChoose(amount, last);
+                   result = ac.ReturnVal();
                }
               
            }
@@ -258,66 +154,10 @@ namespace MoneyLibr
             int last = 0;
             if (!unit.Equals(""))
             {
-                if (unit.Length > 1 && (int)(unit[unit.Length - 2] - 48) == 1)
-                    ;
-                else last = (int)(unit[unit.Length - 1]) - 48;
-                switch (currency)
-                {
-                    case "rub":
-                        {
-                            switch (last)
-                            {
-                                case 1:
-                                    {
-                                        result = "рубль ";
-                                        break;
-                                    }
-                                case 2:
-                                case 3:
-                                case 4:
-                                    {
-                                        result = "рубля ";
-                                        break;
-                                    }
-                                default:
-                                    {
-                                        result = "рублей ";
-                                        break;
-                                    }
-                            }
-                            break;
-                        }
-                    case "dol":
-                        {
-                            switch (last)
-                            {
-                                case 1:
-                                    {
-                                        result = "доллар ";
-                                        break;
-                                    }
-                                case 2:
-                                case 3:
-                                case 4:
-                                    {
-                                        result = "доллара ";
-                                        break;
-                                    }
-                                default:
-                                    {
-                                        result = "долларов ";
-                                        break;
-                                    }
-                            }
-                            break;
-                        }
-                    case "eur":
-                        {
-                            result = "евро ";
-                            break;
-                        }
-                    default: break;
-                }
+                if (!(unit.Length > 1 && (int)(unit[unit.Length - 2] - 48) == 1))   //Иначе оставляем Last = 0
+                    last = (int)(unit[unit.Length - 1]) - 48; 
+                CurrencyChoose cc = new CurrencyChoose(currency, last);
+                result = cc.ReturnVal();
             }
             return result;
         }
@@ -337,3 +177,4 @@ namespace MoneyLibr
         
     }
 }
+ 
