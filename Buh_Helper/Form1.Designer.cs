@@ -237,7 +237,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(889, 168);
+            this.ClientSize = new System.Drawing.Size(889, 145);
             this.Controls.Add(this.Paste_Button);
             this.Controls.Add(this.Copy_Button);
             this.Controls.Add(this.ReturnButton);

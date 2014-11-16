@@ -128,6 +128,7 @@ namespace Buh_Helper
             EnterTextBox.Text = rgx.Replace(EnterTextBox.Text,"");
         }
 
+
     }
 }
 //12               0rge0903
